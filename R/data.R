@@ -1,0 +1,43 @@
+#' Mass spectra of alkanes
+#'
+#' @description
+#'   Electron ionization mass spectra of alkanes from the MassBank database
+#'   (version 2023.11).
+#'
+#' @format
+#'   A list of nested lists. Each nested list is a mass spectrum. Each nested
+#'   list contains the following elements (a more detailed description can be
+#'   found in the official documentation of
+#'   \href{https://github.com/MassBank/MassBank-web/blob/main/Documentation/MassBankRecordFormat.md}{MassBank}):
+#'   \describe{
+#'     \item{\code{name}}{A string. Name of the chemical compound analyzed.}
+#'     \item{\code{synon}}{A character vector. Alternative chemical names. The
+#'     element may be absent for certain mass spectra.}
+#'     \item{\code{db_no}}{A string. Identifier of the MassBank record.}
+#'     \item{\code{inchikey}}{A string. InChIKey.}
+#'     \item{\code{inchi}}{A string. IUPAC International Chemical Identifier
+#'     (InChI Code).}
+#'     \item{\code{smiles}}{A string. SMILES string}
+#'     \item{\code{spectrum_type}}{A string. MSn type of data.}
+#'     \item{\code{instrument_type}}{A string. Type of instrument.}
+#'     \item{\code{instrument}}{A string. Commercial name and manufacturer of
+#'     instrument.}
+#'     \item{\code{ion_mode}}{A string. Polarity of ion detection.}
+#'     \item{\code{formula}}{A string. Chemical formula.}
+#'     \item{\code{mw}}{A string. Nominal mass.}
+#'     \item{\code{exactmass}}{A string. Exact mass.}
+#'     \item{\code{comments}}{A string. Comments.}
+#'     \item{\code{splash}}{A string. Hashed identifier of mass spectra.}
+#'     \item{\code{library}}{A string. The name and version of the database.}
+#'     \item{\code{mz}}{A numeric vector. Mass values of mass spectral peaks.}
+#'     \item{\code{intst}}{A numeric vector. Intensities of mass spectral
+#'     peaks.}
+#'   }
+#'
+#' @source
+#'   \href{https://github.com/MassBank/MassBank-data/releases/tag/2023.11}{MassBank (version 2023.11)}.
+"massbank_alkanes"
+
+
+
+

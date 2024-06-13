@@ -1,0 +1,33 @@
+Unknown: Undecane                                                    Compound in Library Factor = 342
+Hit 1  : <<UNDECANE>>;<<C11H24>>; MF: 951; RMF: 960; Prob: 55.70; CAS:0; Mw: 156; Lib: <<massbank_alkanes>>; Id: 11; RI: 0.
+Hit 2  : <<UNDECANE>>;<<C11H24>>; MF: 928; RMF: 928; Prob: 20.34; CAS:0; Mw: 156; Lib: <<massbank_alkanes>>; Id: 72; RI: 0.
+Hit 3  : <<DODECANE>>;<<C12H26>>; MF: 906; RMF: 929; Prob: 8.04; CAS:0; Mw: 170; Lib: <<massbank_alkanes>>; Id: 74; RI: 0.
+Hit 4  : <<TRIDECANE>>;<<C13H28>>; MF: 892; RMF: 907; Prob: 5.03; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 41; RI: 0.
+Hit 5  : <<DODECANE>>;<<C12H26>>; MF: 886; RMF: 900; Prob: 3.95; CAS:0; Mw: 170; Lib: <<massbank_alkanes>>; Id: 42; RI: 0.
+Hit 6  : <<DECANE>>;<<C10H22>>; MF: 853; RMF: 886; Prob: 1.03; CAS:0; Mw: 142; Lib: <<massbank_alkanes>>; Id: 82; RI: 0.
+Hit 7  : <<TRIDECANE>>;<<C13H28>>; MF: 853; RMF: 867; Prob: 1.03; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 65; RI: 0.
+Hit 8  : <<TETRADECANE>>;<<C14H30>>; MF: 850; RMF: 866; Prob: 0.91; CAS:0; Mw: 198; Lib: <<massbank_alkanes>>; Id: 36; RI: 0.
+Hit 9  : <<PENTADECANE>>;<<C15H32>>; MF: 845; RMF: 858; Prob: 0.73; CAS:0; Mw: 212; Lib: <<massbank_alkanes>>; Id: 46; RI: 0.
+Hit 10 : <<HEXADECANE>>;<<C16H34>>; MF: 835; RMF: 849; Prob: 0.52; CAS:0; Mw: 226; Lib: <<massbank_alkanes>>; Id: 79; RI: 0.
+Unknown: Dodecane                                                    Compound in Library Factor = 237
+Hit 1  : <<DODECANE>>;<<C12H26>>; MF: 936; RMF: 956; Prob: 27.81; CAS:0; Mw: 170; Lib: <<massbank_alkanes>>; Id: 74; RI: 0.
+Hit 2  : <<DODECANE>>;<<C12H26>>; MF: 933; RMF: 933; Prob: 24.57; CAS:0; Mw: 170; Lib: <<massbank_alkanes>>; Id: 42; RI: 0.
+Hit 3  : <<TRIDECANE>>;<<C13H28>>; MF: 925; RMF: 939; Prob: 18.33; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 41; RI: 0.
+Hit 4  : <<TRIDECANE>>;<<C13H28>>; MF: 893; RMF: 908; Prob: 4.89; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 65; RI: 0.
+Hit 5  : <<UNDECANE>>;<<C11H24>>; MF: 892; RMF: 927; Prob: 4.70; CAS:0; Mw: 156; Lib: <<massbank_alkanes>>; Id: 11; RI: 0.
+Hit 6  : <<PENTADECANE>>;<<C15H32>>; MF: 882; RMF: 892; Prob: 3.32; CAS:0; Mw: 212; Lib: <<massbank_alkanes>>; Id: 46; RI: 0.
+Hit 7  : <<UNDECANE>>;<<C11H24>>; MF: 880; RMF: 897; Prob: 3.06; CAS:0; Mw: 156; Lib: <<massbank_alkanes>>; Id: 72; RI: 0.
+Hit 8  : <<TETRADECANE>>;<<C14H30>>; MF: 871; RMF: 882; Prob: 2.22; CAS:0; Mw: 198; Lib: <<massbank_alkanes>>; Id: 36; RI: 0.
+Hit 9  : <<HEXADECANE>>;<<C16H34>>; MF: 864; RMF: 875; Prob: 1.70; CAS:0; Mw: 226; Lib: <<massbank_alkanes>>; Id: 79; RI: 0.
+Hit 10 : <<N-OCTADECANE>>;<<C18H38>>; MF: 858; RMF: 874; Prob: 1.34; CAS:0; Mw: 254; Lib: <<massbank_alkanes>>; Id: 7; RI: 0.
+Unknown: Tridecane                                                   Compound in Library Factor = 189
+Hit 1  : <<TRIDECANE>>;<<C13H28>>; MF: 927; RMF: 946; Prob: 19.21; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 41; RI: 0.
+Hit 2  : <<PENTADECANE>>;<<C15H32>>; MF: 918; RMF: 932; Prob: 13.94; CAS:0; Mw: 212; Lib: <<massbank_alkanes>>; Id: 46; RI: 0.
+Hit 3  : <<TRIDECANE>>;<<C13H28>>; MF: 910; RMF: 917; Prob: 10.40; CAS:0; Mw: 184; Lib: <<massbank_alkanes>>; Id: 65; RI: 0.
+Hit 4  : <<TETRADECANE>>;<<C14H30>>; MF: 909; RMF: 927; Prob: 10.00; CAS:0; Mw: 198; Lib: <<massbank_alkanes>>; Id: 36; RI: 0.
+Hit 5  : <<HEXADECANE>>;<<C16H34>>; MF: 901; RMF: 914; Prob: 7.46; CAS:0; Mw: 226; Lib: <<massbank_alkanes>>; Id: 79; RI: 0.
+Hit 6  : <<HEPTADECANE>>;<<C17H36>>; MF: 898; RMF: 912; Prob: 6.59; CAS:0; Mw: 240; Lib: <<massbank_alkanes>>; Id: 43; RI: 0.
+Hit 7  : <<DODECANE>>;<<C12H26>>; MF: 889; RMF: 935; Prob: 4.78; CAS:0; Mw: 170; Lib: <<massbank_alkanes>>; Id: 74; RI: 0.
+Hit 8  : <<N-OCTADECANE>>;<<C18H38>>; MF: 886; RMF: 910; Prob: 4.22; CAS:0; Mw: 254; Lib: <<massbank_alkanes>>; Id: 7; RI: 0.
+Hit 9  : <<NONADECANE>>;<<C19H40>>; MF: 882; RMF: 893; Prob: 3.57; CAS:0; Mw: 268; Lib: <<massbank_alkanes>>; Id: 52; RI: 0.
+Hit 10 : <<OCTADECANE>>;<<C18H38>>; MF: 876; RMF: 889; Prob: 2.80; CAS:0; Mw: 254; Lib: <<massbank_alkanes>>; Id: 15; RI: 0.

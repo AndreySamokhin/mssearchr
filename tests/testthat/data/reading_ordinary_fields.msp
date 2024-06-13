@@ -1,0 +1,13 @@
+Name:  name_value 
+CAS#:  cas_no_value 
+Comment:  comment_value 
+Comments:  comments_value 
+DB#:  db_no_value 
+InChIKey:  inchikey_value 
+SMILES:  smiles_value 
+Instrument_type:  instrument_type_value 
+M/Z Range:  m_z_range_value 
+Num Peaks: 2
+1 20
+2 999
+

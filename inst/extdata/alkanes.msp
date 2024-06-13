@@ -1,0 +1,114 @@
+Name: Undecane
+CAS#: 1120-21-4
+InChI: InChI=1S/C11H24/c1-3-5-7-9-11-10-8-6-4-2/h3-11H2,1-2H3
+InChIKey: RSJKGSCJYJTIGS-UHFFFAOYSA-N
+SMILES: CCCCCCCCCCC
+Instrument_type: GC-EI-Q
+Instrument: Thermo Trace DSQ
+Comments: Andrey Samokhin, Moscow State University, July 2010
+Num Peaks: 23
+53	25
+55	178
+56	190
+57	999
+58	41
+67	8
+69	59
+70	107
+71	375
+72	16
+82	4
+83	18
+84	67
+85	204
+98	40
+99	34
+112	22
+113	27
+114	2
+126	10
+127	15
+156	25
+157	2
+
+Name: Dodecane
+CAS#: 112-40-3
+InChI: InChI=1S/C12H26/c1-3-5-7-9-11-12-10-8-6-4-2/h3-12H2,1-2H3
+InChIKey: SNRUBQQJIBEYMU-UHFFFAOYSA-N
+SMILES: CCCCCCCCCCCC
+Instrument_type: GC-EI-Q
+Instrument: Thermo Trace DSQ
+Comments: Andrey Samokhin, Moscow State University, July 2010
+Num Peaks: 27
+53	23
+54	21
+55	191
+56	193
+57	999
+58	43
+67	9
+68	9
+69	68
+70	102
+71	456
+72	24
+83	27
+84	61
+85	236
+86	17
+97	12
+98	46
+99	42
+112	29
+113	26
+126	15
+127	23
+140	4
+141	10
+170	21
+171	3
+
+
+Name: Tridecane
+CAS#: 629-50-5
+InChI: InChI=1S/C13H28/c1-3-5-7-9-11-13-12-10-8-6-4-2/h3-13H2,1-2H3
+InChIKey: IIYFAKIEWZDVMP-UHFFFAOYSA-N
+SMILES: CCCCCCCCCCCCC
+Instrument_type: GC-EI-Q
+Instrument: Thermo Trace DSQ
+Comments: Andrey Samokhin, Moscow State University, July 2010
+Num Peaks: 34
+53	24
+54	20
+55	215
+56	174
+57	999
+58	44
+67	16
+68	9
+69	71
+70	99
+71	483
+72	24
+82	10
+83	34
+84	54
+85	273
+86	18
+97	18
+98	34
+99	48
+111	5
+112	31
+113	29
+114	3
+126	15
+127	17
+128	3
+140	7
+141	14
+142	2
+154	3
+155	6
+184	14
+185	5
