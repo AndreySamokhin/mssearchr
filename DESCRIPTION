@@ -1,7 +1,7 @@
 Package: mssearchr
 Type: Package
 Title: Library Search Against Electron Ionization Mass Spectral Databases
-Version: 0.0.0.9011
+Version: 0.1.0
 Authors@R: person("Andrey", "Samokhin", , "andrey.s.samokhin@gmail.com",
                   role = c("aut", "cre", "cph"),
                   comment = c(ORCID = "0000-0003-0223-6087"))

@@ -15,6 +15,9 @@ The `mssearchr` package offers the following tools:
 ## Installation
 
 ``` r
+# Install 'mssearchr' from CRAN:
+install.packages("mssearchr")
+
 # Install 'mssearchr' from GitHub:
 library(devtools)
 install_github("https://github.com/AndreySamokhin/mssearchr")
