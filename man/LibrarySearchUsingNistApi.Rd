@@ -91,6 +91,8 @@ The function was tested using the MS Search (NIST) software (version 2.4)
 \examples{
 \dontrun{
 
+# To run this example, ensure that MS Search (NIST) software is installed.
+
 # Reading the 'alkanes.msp' file
 msp_file <- system.file("extdata", "alkanes.msp", package = "mssearchr")
 msp_objs <- ReadMsp(msp_file)

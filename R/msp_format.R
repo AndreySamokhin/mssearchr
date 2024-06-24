@@ -292,11 +292,15 @@ ReadMsp <- function(input_file) {
 #'   \code{NULL} is returned.
 #'
 #' @examples
-#' \dontrun{
 #'
+#' \dontshow{
+#' .old_wd <- setwd(tempdir())
+#' }
 #' # Exporting mass spectra
 #' # Only 'Name', 'SMILES', 'Formula', and 'Num Peaks' fields are exported.
 #' WriteMsp(massbank_alkanes[1:3], "test.msp", fields = c("smiles", "formula"))
+#' \dontshow{
+#' setwd(.old_wd)
 #' }
 #'
 #' @export
