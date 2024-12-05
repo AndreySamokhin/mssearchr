@@ -158,8 +158,9 @@ LibrarySearchUsingNistApi <- function(msp_objs,
     # 'Amdis32Path=...', and  'AmdisMSPath=...') should be present in the
     # '[NISTMS]' section of the 'win.ini' file.
 
-    win_ini_path <- Sys.which("win.ini")
-    if (win_ini_path == "") {
+    # The method for finding the 'win.ini' file was suggested by Ivan Krylov
+    win_ini_path <- file.path(Sys.getenv("WINDIR"), "win.ini")
+    if (!file.exists(win_ini_path)) {
       stop("Set the 'mssearch_dir' argument manually",
            "(the 'win.ini' file was not found).")
     }
@@ -323,7 +324,11 @@ LibrarySearchUsingNistApi <- function(msp_objs,
 
   if (length(temp) == 2L) {
     unknown_name <- trimws(substring(temp[[1]], 10))
-    inlib <- as.integer(temp[[2]])
+    if (temp[[2]] == "N/A") {
+      inlib <- NA_integer_
+    } else {
+      inlib <- as.integer(temp[[2]])
+    }
   } else {
     unknown_name <- NA_character_
     inlib <- NA_integer_

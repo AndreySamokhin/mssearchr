@@ -17,6 +17,9 @@ using namespace Rcpp;
 //'   used.
 //' @param min_mz,max_mz
 //'   An integer value. Boundaries of the m/z range.
+//' @param is_reverse_search
+//'   A logical value. If \code{TRUE}, reverse search is performed and RMF is
+//'   returned.
 //'
 //' @details
 //'   All m/z values should be unique and sorted in the accessing order.
@@ -38,19 +41,20 @@ double CalcMatchFactor(NumericMatrix ms_u,
                        bool is_identity,
                        int min_mz = -1,
                        int max_mz = -1,
+                       bool is_reverse_search = false,
                        bool is_debugging = false) {
 
   // tolerance
-  double tol = sqrt(DBL_EPSILON);
+  const double tol = sqrt(DBL_EPSILON);
   // Rprintf("tol = %e\n", tol);
 
   // counters
   int i_u = 0;
   int i_l = 0;
-  int n_peaks_u = ms_u.nrow();
-  int n_peaks_l = ms_l.nrow();
+  const int n_peaks_u = ms_u.nrow();
+  const int n_peaks_l = ms_l.nrow();
 
-  // column indeces
+  // column indexes
   const int mz = 0;
   const int intst = 1;
   const int w1 = 2; // weighted intensity for the cosine similarity
@@ -66,10 +70,10 @@ double CalcMatchFactor(NumericMatrix ms_u,
     while (tol < ms_l(i_l, mz) - ms_u(i_u, mz) && i_u < n_peaks_u) i_u++;
   }
 
-  if (is_debugging) {
-    Rprintf("min_mz = %d; i_u = %d (out of %d); i_l = %d (out of %d)\n",
-            min_mz, i_u + 1, n_peaks_u, i_l + 1, n_peaks_l);
-  }
+  // if (is_debugging) {
+  //   Rprintf("min_mz = %d; i_u = %d (out of %d); i_l = %d (out of %d)\n",
+  //           min_mz, i_u + 1, n_peaks_u, i_l + 1, n_peaks_l);
+  // }
 
   // at least one mass spectrum does not contain peaks in the set m/z range
   if (i_u >= n_peaks_u || i_l >= n_peaks_l) {
@@ -112,7 +116,11 @@ double CalcMatchFactor(NumericMatrix ms_u,
     } else if (tol < ms_l(i_l, mz) - ms_u(i_u, mz)) {
       calc_type = kUnknown;
     } else {
-      calc_type = kBoth;
+      if (is_reverse_search && ms_l(i_l, intst) < tol) {
+        calc_type = kUnknown;
+      } else {
+        calc_type = kBoth;
+      }
     }
 
     if (calc_type == kBoth) {
@@ -147,7 +155,9 @@ double CalcMatchFactor(NumericMatrix ms_u,
     } else if (calc_type == kUnknown) {
       if (ms_u(i_u, intst) > 1) {
         should_calc_term2 = false;
-        sum_uu += ms_u(i_u, w1) * ms_u(i_u, w1);
+        if (!is_reverse_search) {
+          sum_uu += ms_u(i_u, w1) * ms_u(i_u, w1);
+        }
       }
       i_u++;
 
@@ -175,29 +185,23 @@ double CalcMatchFactor(NumericMatrix ms_u,
     return 0;
   }
 
-  if (is_debugging) {
-    double term1 = sum_ul * sum_ul / (sum_uu * sum_ll);
-    Rprintf("term1 = %.1lf; n1 = %d", 1000.0 * term1 - 0.5, n1);
-    Rprintf(" (sum_ul = %.1lf; sum_uu = %.1lf; sum_ll = %.1lf)",
-            sum_ul, sum_uu, sum_ll);
-    if (sum_m > 0) {
-      double term2 = sum_rm / sum_m;
-      Rprintf("\n");
-      Rprintf("term2 = %.1lf; n2 = %d", 1000.0 * term2 - 0.5, n2);
-      Rprintf("; mf = %.1lf\n",
-              1000.0 * (term1 * n1 + term2 * n2) / (n1 + n2) - 0.5);
-    } else {
-      Rprintf("; mf = %.1lf\n", 1000.0 * term1 - 0.5);
-    }
-  }
+  // if (is_debugging) {
+  //   double term1 = sum_ul * sum_ul / (sum_uu * sum_ll);
+  //   Rprintf("term1 = %.1lf; n1 = %d", 1000.0 * term1 - 0.5, n1);
+  //   Rprintf(" (sum_ul = %.1lf; sum_uu = %.1lf; sum_ll = %.1lf)",
+  //           sum_ul, sum_uu, sum_ll);
+  //   if (sum_m > 0) {
+  //     double term2 = sum_rm / sum_m;
+  //     Rprintf("\n");
+  //     Rprintf("term2 = %.1lf; n2 = %d", 1000.0 * term2 - 0.5, n2);
+  //     Rprintf("; mf = %.1lf\n",
+  //             1000.0 * (term1 * n1 + term2 * n2) / (n1 + n2) - 0.5);
+  //   } else {
+  //     Rprintf("; mf = %.1lf\n", 1000.0 * term1 - 0.5);
+  //   }
+  // }
 
   double term1 = sum_ul * sum_ul / (sum_uu * sum_ll); // i.e., cos_a^2;
-  // double term1;
-  // if (sum_uu * sum_ll > 0) {
-  //   term1 = sum_ul * sum_ul / (sum_uu * sum_ll); // i.e., cos_a^2
-  // } else {
-  //   term1 = 0;
-  // }
   if (sum_m > 0) { // if 'sum_m = 0', then 'n2 = 0' and 'term2 = 0'
     return 1000.0 * (term1 * n1 + (sum_rm / sum_m) * n2) / (n1 + n2) - 0.5;
   } else {

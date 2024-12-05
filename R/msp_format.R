@@ -54,7 +54,7 @@
 
   # Checking that the 'Name' field is present.
   if (!is.element("name", field_names)) {
-    stop("The 'name' field is absent (line_no: ", line_no, ").")
+    stop("The 'name' field is missing (line_no: ", line_no, ").")
   }
 
   # Checking that all field names (except 'Synon') are unique.
@@ -63,7 +63,7 @@
     stop("Field names are not unique (line_no: ", line_no, ").")
   }
 
-  # Checking that 'MZ' and 'Intst' fields are absent.
+  # Checking that 'MZ' and 'Intst' fields are missing.
   if (is.element("mz", field_names)) {
     stop("The 'mz' field is present (line_no: ", line_no, ").")
   }
@@ -117,7 +117,7 @@
   # Checking that the 'Num Peaks' field is present and the specified number of
   # peaks is correct.
   if (!is.element("num_peaks", field_names)) {
-    warning("The 'Num Peaks' field is absent (line_no: ", line_no, ").")
+    warning("The 'Num Peaks' field is missing (line_no: ", line_no, ").")
   } else {
     num_peaks <- as.numeric(field_values[[match("num_peaks", field_names)]])
     if (length(msp_obj$mz) != num_peaks) {
@@ -230,7 +230,7 @@ ReadMsp <- function(input_file) {
   all_lines <- readLines(input_file)
   first_line_idxs <- grep("^name: ", all_lines, ignore.case = TRUE)
   if (length(first_line_idxs) == 0L) {
-    stop("The msp-file is invalid (the 'Name' field is absent).")
+    stop("The msp-file is invalid (the 'Name' field is missing).")
   }
   last_line_idxs <- c(first_line_idxs[-1] - 1L, length(all_lines))
 
@@ -347,7 +347,7 @@ WriteMsp <- function(msp_objs,
   all_lines <- unlist(lapply(msp_objs, function(msp) {
 
     if (is.null(msp$name)) {
-      stop("The '...$name' element is absent.")
+      stop("The '...$name' element is missing.")
     }
 
     # 'fields_to_export'

@@ -4,7 +4,12 @@
 \alias{PreprocessMassSpectra}
 \title{Pre-process mass spectra}
 \usage{
-PreprocessMassSpectra(msp_objs, bin_boundary = 0.649, remove_zeros = TRUE)
+PreprocessMassSpectra(
+  msp_objs,
+  bin_boundary = 0.649,
+  remove_zeros = TRUE,
+  max_intst = 999
+)
 }
 \arguments{
 \item{msp_objs}{A list of nested lists. Each nested list is a mass spectrum. Each nested
@@ -28,6 +33,10 @@ excluded from mass spectra. It should be taken into account that all
 zero-intensity peaks presented in a mass spectrum are considered as 'trace
 peaks' in the case of MS Search software. As a result, the presence/absence
 of such peaks can influence the value of the match factor.}
+
+\item{max_intst}{A numeric value. The maximum intensity (i.e., intensity of the base peak)
+after normalization. The default value is 999 because it is used in
+some electron ionization mass spectral databases including NIST.}
 }
 \value{
 A list of nested lists. Each nested list is a mass spectrum. Only the
@@ -45,8 +54,8 @@ Pre-processing includes the following steps:
     are rounded to the nearest integer using the value of the
     \code{bin_boundary} argument. Intensities of peaks with identical m/z
     values are summed.
-    \item Intensities of mass spectral peaks are normalized to 999 (as it is
-    done in the MS Search software).
+    \item Intensities of mass spectral peaks are normalized to
+    \code{max_intst}.
     \item Intensities of mass spectral peaks are rounded to the nearest
     integer.
     \item If the \code{remove_zeros} argument is \code{TRUE}, all

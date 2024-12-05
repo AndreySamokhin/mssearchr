@@ -1,0 +1,11 @@
+bibentry(
+  bibtype  = "Article",
+  title    = "The Identity Algorithm: How the Most Popular Electron Ionization Mass Spectral Library Search Engine Actually Works",
+  author   = c(person("Andrey", "Samokhin")),
+  journal  = "Journal of the American Society for Mass Spectrometry",
+  year     = 2024,
+  volume   = 35,
+  number   = 12,
+  pages    = "3178-3183",
+  doi      = "10.1021/jasms.4c00350"
+)

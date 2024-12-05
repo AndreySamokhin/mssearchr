@@ -1,7 +1,7 @@
 Package: mssearchr
 Type: Package
 Title: Library Search Against Electron Ionization Mass Spectral Databases
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: person("Andrey", "Samokhin", , "andrey.s.samokhin@gmail.com",
                   role = c("aut", "cre", "cph"),
                   comment = c(ORCID = "0000-0003-0223-6087"))
@@ -18,6 +18,6 @@ Suggests: testthat (>= 3.0.0)
 LinkingTo: Rcpp
 Config/testthat/edition: 3
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 NeedsCompilation: yes
 LazyData: true

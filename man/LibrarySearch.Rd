@@ -8,6 +8,7 @@ LibrarySearch(
   msp_objs_u,
   msp_objs_l,
   algorithm = c("identity_normal", "similarity_simple"),
+  search_type = c("standard", "reverse"),
   n_hits = 100L,
   hitlist_columns = c("formula", "mw", "smiles"),
   mz_min = NULL,
@@ -28,15 +29,21 @@ pre-processed using the \code{\link{PreprocessMassSpectra}} function.}
 (\code{identity_normal}) or Similarity EI Simple (\code{similarity_simple})
 algorithm.}
 
+\item{search_type}{A string. Library search type: standard search (\code{standard}) or reverse
+search (\code{reverse}). During the standard search all peaks presented in
+either library or unknown spectrum are taken into account. During the
+reverse search all peaks that are absent in the library spectrum are
+ignored.}
+
 \item{n_hits}{An integer value. The maximum number of hits (i.e., candidates) to display.}
 
 \item{hitlist_columns}{A character vector. Three columns are always present in the returned
-hitlist: \code{name}, \code{mf} (i.e., the match factor), and \code{idx}
-(i.e., the index of the respective library mass spectrum in the
-\code{msp_objs_l} list). Some additional columns can be added using the
-\code{hitlist_columns} argument (e.g., \code{cas_no}, \code{formula},
-\code{inchikey}, etc.). Only scalar values (i.e., an atomic vector of unit
-length) are allowed.}
+hitlist: \code{name}, \code{mf} or \code{rmf} (i.e., the match factor or
+the reverse match factor), and \code{idx} (i.e., the index of the
+respective library mass spectrum in the \code{msp_objs_l} list). Some
+additional columns can be added using the \code{hitlist_columns} argument
+(e.g., \code{cas_no}, \code{formula}, \code{inchikey}, etc.). Only scalar
+values (i.e., an atomic vector of unit length) are allowed.}
 
 \item{mz_min, mz_max}{An integer value. Boundaries of the m/z range (all m/z values out of this
 range are not taken into account when the match factor is calculated).}
@@ -47,11 +54,11 @@ attribute of the returned list.}
 \value{
 Return a list of data frames. Each data frame is a hitlist (i.e., list of
   possible candidates). Each hitlist always contains three columns:
-  \code{name}, \code{mf} (i.e., the match factor), and \code{idx} (i.e., the
-  index of the respective library mass spectrum in the \code{msp_objs_l}
-  list). Additional columns can be extracted using the \code{hitlist_columns}
-  argument. Library search options are saved as the
-  \code{library_search_options} attribute.
+  \code{name}, \code{mf} or \code{rmf} (i.e., the match factor or the reverse
+  match factor), and \code{idx} (i.e., the index of the respective library
+  mass spectrum in the \code{msp_objs_l} list). Additional columns can be
+  extracted using the \code{hitlist_columns} argument. Library search options
+  are saved as the \code{library_search_options} attribute.
 }
 \description{
 Perform library search using a custom implementation of the Identity (EI

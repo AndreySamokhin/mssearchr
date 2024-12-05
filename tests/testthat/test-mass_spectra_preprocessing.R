@@ -38,7 +38,7 @@ test_that("PreprocessMassSpectra(), intensity normalization", {
 
 
 
-test_that("PreprocessMassSpectra(), removing zeros", {
+test_that("PreprocessMassSpectra(), zero-intensity peaks", {
   mz <- seq(52L, 60L, 2L)
   intst <- c(seq(200, 800, 200), 999)
   msp_objs <- list(

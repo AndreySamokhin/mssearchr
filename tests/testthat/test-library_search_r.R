@@ -1,22 +1,10 @@
-test_that("Search(), compare with snapshot (synthetic test)", {
-  load(test_path("data/library_search_synthetic.rda"))
-  # The file contains: 'fun_name', 'input_args', 'snapshot'
-  res <- do.call(fun_name, input_args)
+test_that("Search(), compare with snapshot (synthetic mass spectra)", {
+  load(test_path("data/library_search/library_search_synthetic.rda"))
+  # The file contains two objects: 'input_args' and 'snapshot'
+  res <- lapply(input_args, function(a1) { do.call("LibrarySearch", a1)})
   for (i in seq_along(res)) {
-    expect_equal(res[[i]], snapshot[[i]])
-  }
-})
-
-
-
-test_that("Search(), compare with snapshot (alkanes)", {
-  load(test_path("data/library_search_alkanes.rda"))
-  # The file contains: 'fun_name', 'input_ms', 'input_optns', 'snapshot'
-  for(i in seq_along(input_optns)) {
-    input_args <- c(input_ms, input_optns[[i]])
-    res <- do.call(fun_name, input_args)
-    for (j in seq_along(res)) {
-      expect_equal(res[[j]], snapshot[[i]][[j]])
+    for (j in seq_along(res[[i]])) {
+      expect_equal(res[[i]][[j]], snapshot[[i]][[j]])
     }
   }
 })

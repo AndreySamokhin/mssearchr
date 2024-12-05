@@ -27,6 +27,10 @@
 #'   zero-intensity peaks presented in a mass spectrum are considered as 'trace
 #'   peaks' in the case of MS Search software. As a result, the presence/absence
 #'   of such peaks can influence the value of the match factor.
+#' @param max_intst
+#'   A numeric value. The maximum intensity (i.e., intensity of the base peak)
+#'   after normalization. The default value is 999 because it is used in
+#'   some electron ionization mass spectral databases including NIST.
 #'
 #' @details
 #'   Pre-processing includes the following steps:
@@ -35,8 +39,8 @@
 #'     are rounded to the nearest integer using the value of the
 #'     \code{bin_boundary} argument. Intensities of peaks with identical m/z
 #'     values are summed.
-#'     \item Intensities of mass spectral peaks are normalized to 999 (as it is
-#'     done in the MS Search software).
+#'     \item Intensities of mass spectral peaks are normalized to
+#'     \code{max_intst}.
 #'     \item Intensities of mass spectral peaks are rounded to the nearest
 #'     integer.
 #'     \item If the \code{remove_zeros} argument is \code{TRUE}, all
@@ -73,7 +77,8 @@
 #==============================================================================#
 PreprocessMassSpectra <- function(msp_objs,
                                   bin_boundary = 0.649,
-                                  remove_zeros = TRUE) {
+                                  remove_zeros = TRUE,
+                                  max_intst = 999) {
 
   #--[ Input check ]------------------------------------------------------------
 
@@ -97,44 +102,53 @@ PreprocessMassSpectra <- function(msp_objs,
     stop("'remove_zeros' must be a logical value.")
   }
 
+  # 'max_intst'
+  if (!is.numeric(max_intst) || length(max_intst) != 1) {
+    stop("'max_intst' must be a numeric value.")
+  }
+
 
 
   #--[ Pre-processing ]---------------------------------------------------------
 
+  is_warning_shown <- FALSE
   for (i in seq_along(msp_objs)) {
 
-    if (is.null(attr(msp_objs[[i]], "preprocessed")) ||
-        !attr(msp_objs[[i]], "preprocessed")) {
-
-      if (length(msp_objs[[i]]$mz) != length(msp_objs[[i]]$intst)) {
-        stop("'length(msp_objs[[", i, "]]$mz) != ",
-             "length(msp_objs[[", i, "]]$intst)'")
-      }
-
-      # Both 'mz' and 'intst' can be overwritten after initializing.
-      mz_int <- as.integer(ceiling(msp_objs[[i]]$mz - bin_boundary))
-      mz <- sort(unique(mz_int))
-      if (length(mz) == length(mz_int)) {
-        intst <- msp_objs[[i]]$intst[order(mz_int)]
-      } else {
-        intst <- vapply(mz, function(x) {
-          sum(msp_objs[[i]]$intst[x == mz_int])
-        }, numeric(1L))
-      }
-
-      # Mass spectra are normalized to 999 in the MS Search (NIST) software.
-      intst <- as.integer(999 * (intst / max(intst)) + 0.5)
-
-      if (remove_zeros) {
-        mask <- (intst > 0L)
-        intst <- intst[mask]
-        mz <- mz[mask]
-      }
-
-      msp_objs[[i]]$mz <- mz
-      msp_objs[[i]]$intst <- intst
-      attr(msp_objs[[i]], "preprocessed") <- TRUE
+    if (!is_warning_shown && !is.null(attr(msp_objs[[i]], "preprocessed")) &&
+        attr(msp_objs[[i]], "preprocessed")) {
+      is_warning_shown <- TRUE
+      warning("At least one mass spectrum has been already pre-processed.")
     }
+
+    if (length(msp_objs[[i]]$mz) != length(msp_objs[[i]]$intst)) {
+      stop("'length(msp_objs[[", i, "]]$mz) != ",
+           "length(msp_objs[[", i, "]]$intst)'")
+    }
+
+    # Both 'mz' and 'intst' can be overwritten after initializing.
+    mz_int <- as.integer(ceiling(msp_objs[[i]]$mz - bin_boundary))
+    mz <- sort(unique(mz_int))
+    if (length(mz) == length(mz_int)) {
+      intst <- msp_objs[[i]]$intst[order(mz_int)]
+    } else {
+      intst <- vapply(mz, function(x) {
+        sum(msp_objs[[i]]$intst[x == mz_int])
+      }, numeric(1L))
+    }
+
+    # Mass spectra are normalized to 999 in MS Search (NIST) software. For
+    # this reason the default value of 'max_intst' is equal to 999.
+    intst <- as.integer(max_intst * (intst / max(intst)) + 0.5)
+
+    if (remove_zeros) {
+      mask <- (intst > 0L)
+      intst <- intst[mask]
+      mz <- mz[mask]
+    }
+
+    msp_objs[[i]]$mz <- mz
+    msp_objs[[i]]$intst <- intst
+    attr(msp_objs[[i]], "preprocessed") <- TRUE
   }
 
 

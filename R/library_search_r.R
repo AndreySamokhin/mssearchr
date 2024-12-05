@@ -15,19 +15,25 @@
 #'   and 'l' stand for unknown and library respectively). Mass spectra should be
 #'   pre-processed using the \code{\link{PreprocessMassSpectra}} function.
 #' @param algorithm
-#' A string. Library search algorithm. Either the Identity EI Normal
-#' (\code{identity_normal}) or Similarity EI Simple (\code{similarity_simple})
-#' algorithm.
+#'   A string. Library search algorithm. Either the Identity EI Normal
+#'   (\code{identity_normal}) or Similarity EI Simple (\code{similarity_simple})
+#'   algorithm.
+#' @param search_type
+#'   A string. Library search type: standard search (\code{standard}) or reverse
+#'   search (\code{reverse}). During the standard search all peaks presented in
+#'   either library or unknown spectrum are taken into account. During the
+#'   reverse search all peaks that are absent in the library spectrum are
+#'   ignored.
 #' @param n_hits
 #'   An integer value. The maximum number of hits (i.e., candidates) to display.
 #' @param hitlist_columns
 #'   A character vector. Three columns are always present in the returned
-#'   hitlist: \code{name}, \code{mf} (i.e., the match factor), and \code{idx}
-#'   (i.e., the index of the respective library mass spectrum in the
-#'   \code{msp_objs_l} list). Some additional columns can be added using the
-#'   \code{hitlist_columns} argument (e.g., \code{cas_no}, \code{formula},
-#'   \code{inchikey}, etc.). Only scalar values (i.e., an atomic vector of unit
-#'   length) are allowed.
+#'   hitlist: \code{name}, \code{mf} or \code{rmf} (i.e., the match factor or
+#'   the reverse match factor), and \code{idx} (i.e., the index of the
+#'   respective library mass spectrum in the \code{msp_objs_l} list). Some
+#'   additional columns can be added using the \code{hitlist_columns} argument
+#'   (e.g., \code{cas_no}, \code{formula}, \code{inchikey}, etc.). Only scalar
+#'   values (i.e., an atomic vector of unit length) are allowed.
 #' @param mz_min,mz_max
 #'   An integer value. Boundaries of the m/z range (all m/z values out of this
 #'   range are not taken into account when the match factor is calculated).
@@ -38,11 +44,11 @@
 #' @return
 #'   Return a list of data frames. Each data frame is a hitlist (i.e., list of
 #'   possible candidates). Each hitlist always contains three columns:
-#'   \code{name}, \code{mf} (i.e., the match factor), and \code{idx} (i.e., the
-#'   index of the respective library mass spectrum in the \code{msp_objs_l}
-#'   list). Additional columns can be extracted using the \code{hitlist_columns}
-#'   argument. Library search options are saved as the
-#'   \code{library_search_options} attribute.
+#'   \code{name}, \code{mf} or \code{rmf} (i.e., the match factor or the reverse
+#'   match factor), and \code{idx} (i.e., the index of the respective library
+#'   mass spectrum in the \code{msp_objs_l} list). Additional columns can be
+#'   extracted using the \code{hitlist_columns} argument. Library search options
+#'   are saved as the \code{library_search_options} attribute.
 #'
 #' @examples
 #' # Reading the 'alkanes.msp' file
@@ -73,6 +79,7 @@
 LibrarySearch <- function(msp_objs_u,
                           msp_objs_l,
                           algorithm = c("identity_normal", "similarity_simple"),
+                          search_type = c("standard", "reverse"),
                           n_hits = 100L,
                           hitlist_columns = c("formula", "mw", "smiles"),
                           mz_min = NULL,
@@ -96,6 +103,9 @@ LibrarySearch <- function(msp_objs_u,
   }
 
   # 'algorithm'
+  # The 'match.arg()' function is used.
+
+  # 'search_type'
   # The 'match.arg()' function is used.
 
   # 'n_hits'
@@ -143,6 +153,8 @@ LibrarySearch <- function(msp_objs_u,
 
   algorithm <- match.arg(algorithm)
   is_identity <- (algorithm == "identity_normal")
+  search_type <- match.arg(search_type)
+  is_reverse_search <- (search_type == "reverse")
   if (is.null(mz_min)) {
     mz_min <- -1L
   }
@@ -161,7 +173,7 @@ LibrarySearch <- function(msp_objs_u,
   out <- lapply(seq_along(msp_objs_u), function(idx_u) {
     mf <- vapply(seq_along(msp_objs_l), function(idx_l) {
       .CalcMatchFactorC(wms_u[[idx_u]], wms_l[[idx_l]], is_identity,
-                        mz_min, mz_max)
+                        mz_min, mz_max, is_reverse_search)
     }, numeric(1))
     new_order <- order(mf, decreasing = TRUE)
     # 'hl' is an abbreviation for 'hitlist'
@@ -182,9 +194,14 @@ LibrarySearch <- function(msp_objs_u,
         }
       }), recursive = FALSE)
     })
+    if (is_reverse_search) {
+      hl_col_names <- c("name", "rmf", "idx", hitlist_columns)
+    } else {
+      hl_col_names <- c("name", "mf", "idx", hitlist_columns)
+    }
     hl <- as.data.frame(
       c(list(hl_names), list(hl_mfs), list(hl_idxs), addl_columns),
-      col.names = c("name", "mf", "idx", hitlist_columns)
+      col.names = hl_col_names
     )
     return(hl)
   })
@@ -194,6 +211,7 @@ LibrarySearch <- function(msp_objs_u,
   #--[ Attributes ]-------------------------------------------------------------
 
   library_search_options <- list(algorithm = algorithm,
+                                 search_type = search_type,
                                  mz_min = mz_min,
                                  mz_max = mz_max,
                                  n_hits = n_hits)

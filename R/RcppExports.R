@@ -15,6 +15,9 @@
 #'   used.
 #' @param min_mz,max_mz
 #'   An integer value. Boundaries of the m/z range.
+#' @param is_reverse_search
+#'   A logical value. If \code{TRUE}, reverse search is performed and RMF is
+#'   returned.
 #'
 #' @details
 #'   All m/z values should be unique and sorted in the accessing order.
@@ -29,7 +32,7 @@
 #'
 #' @noRd
 #'
-.CalcMatchFactorC <- function(ms_u, ms_l, is_identity, min_mz = -1L, max_mz = -1L, is_debugging = FALSE) {
-    .Call(`_mssearchr_CalcMatchFactor`, ms_u, ms_l, is_identity, min_mz, max_mz, is_debugging)
+.CalcMatchFactorC <- function(ms_u, ms_l, is_identity, min_mz = -1L, max_mz = -1L, is_reverse_search = FALSE, is_debugging = FALSE) {
+    .Call(`_mssearchr_CalcMatchFactor`, ms_u, ms_l, is_identity, min_mz, max_mz, is_reverse_search, is_debugging)
 }
 

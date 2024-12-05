@@ -11,8 +11,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // CalcMatchFactor
-double CalcMatchFactor(NumericMatrix ms_u, NumericMatrix ms_l, bool is_identity, int min_mz, int max_mz, bool is_debugging);
-RcppExport SEXP _mssearchr_CalcMatchFactor(SEXP ms_uSEXP, SEXP ms_lSEXP, SEXP is_identitySEXP, SEXP min_mzSEXP, SEXP max_mzSEXP, SEXP is_debuggingSEXP) {
+double CalcMatchFactor(NumericMatrix ms_u, NumericMatrix ms_l, bool is_identity, int min_mz, int max_mz, bool is_reverse_search, bool is_debugging);
+RcppExport SEXP _mssearchr_CalcMatchFactor(SEXP ms_uSEXP, SEXP ms_lSEXP, SEXP is_identitySEXP, SEXP min_mzSEXP, SEXP max_mzSEXP, SEXP is_reverse_searchSEXP, SEXP is_debuggingSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,14 +21,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type is_identity(is_identitySEXP);
     Rcpp::traits::input_parameter< int >::type min_mz(min_mzSEXP);
     Rcpp::traits::input_parameter< int >::type max_mz(max_mzSEXP);
+    Rcpp::traits::input_parameter< bool >::type is_reverse_search(is_reverse_searchSEXP);
     Rcpp::traits::input_parameter< bool >::type is_debugging(is_debuggingSEXP);
-    rcpp_result_gen = Rcpp::wrap(CalcMatchFactor(ms_u, ms_l, is_identity, min_mz, max_mz, is_debugging));
+    rcpp_result_gen = Rcpp::wrap(CalcMatchFactor(ms_u, ms_l, is_identity, min_mz, max_mz, is_reverse_search, is_debugging));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_mssearchr_CalcMatchFactor", (DL_FUNC) &_mssearchr_CalcMatchFactor, 6},
+    {"_mssearchr_CalcMatchFactor", (DL_FUNC) &_mssearchr_CalcMatchFactor, 7},
     {NULL, NULL, 0}
 };
 
